@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+	<title>LoJAX demo (working for all browsers)</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+
+	<!-- LoJAX (Low-technology AJAX) by brothercake - http://www.brothercake.com/ -->
+	<script type="text/javascript">
+
+	var lojax =
+	{
+		'action' : './lojax.php',
+		'implementation' : 'lojax',
+		'timeout' : 180,
+		'expose' : false,
+		'negate' : true,
+		'fn' : 'LOJAXRequest'
+	};
+
+	</script>
+	<script type="text/javascript" src="lojax.js"></script>
+
+
+	<!-- test code -->
+	<script type="text/javascript">
+
+		var request = null;
+
+		function makeRequest()
+		{
+			if(typeof window.LOJAXRequest != 'undefined')
+			{
+				try { request = new LOJAXRequest(); }
+				catch(err) { request = null; }
+			}
+
+			if(request)
+			{
+				request.onreadystatechange = function()
+				{
+					if(request.readyState == 4)
+					{
+						if(/^(200|304)$/.test(request.status.toString()))
+						{
+							alert('Data returned from '
+								+ (lojax.implementation == 'ajax' ? 'AJAX' : 'LoJAX')
+								+ ' request:\n\n\n' + request.responseText);
+						}
+					}
+				}
+
+				request.open('GET', 'http://www.udm4.com/robots.txt', true);
+				request.send(null);
+			}
+		}
+
+		window.onload = function()
+		{
+			var frm = document.getElementById('testform');
+			if(frm)
+			{
+				frm.onsubmit = function()
+				{
+					makeRequest();
+					return false;
+				};
+			}
+		}
+
+	</script>
+
+
+</head>
+
+<body>
+
+
+	<h1>LoJAX demo (working for all browsers)</h1>
+
+	<form id="testform" action="">
+		<fieldset>
+			<input type="Submit" value="Make request" />
+		</fieldset>
+	</form>
+
+	<p>
+		This page shows the <abbr title="Low-technology AJAX">LoJAX</abbr> framework configured to
+		work for all browsers, whether or not they already
+		have support for <code>XMLHttpRequest</code>.
+	</p>
+
+	<p>
+		Press the <kbd>Make request</kbd> button above,
+		and the script will make a <code>GET</code> request
+		for the <q>robots.txt</q> file at
+		<code>udm4.com</code>
+	</p>
+
+
+
+
+</body>
+</html>
