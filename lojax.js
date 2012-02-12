@@ -1,7 +1,8 @@
 /*******************************************************************************
- LJX1.0 :: LoJAX (Low-Technology AJAX)
+ LJX1.1 :: LoJAX (Low-Technology AJAX)
  ------------------------------------------------------------------------------
  Copyright (c) 2006 James Edwards (brothercake)          <cake@brothercake.com>
+ Copyright (c) 2012 dozen
  BSD License                          See license.txt for licensing information
  Info/Docs             http://www.brothercake.com/site/resources/scripts/lojax/
  ------------------------------------------------------------------------------

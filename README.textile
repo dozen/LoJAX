@@ -1,0 +1,16 @@
+h2. LoJAX
+
+LoJAX is a re-creation of the window.XMLHttpRequest object, designed for low-specification and legacy browsers.
+
+h4. Browser support
+
+* Sony PSP (Version 2.00 or later)
+* Opera 5, 6 and 7 (Versions 5.0 to 7.5 inclusive)
+* Mac/IE5 (Version 5.0 or later)
+* Konqueror 3.1
+* OmniWeb 4.5 and 5.0
+* Espial Escape 5.1
+
+h4. More help
+
+See web site. http://www.brothercake.com/site/resources/scripts/lojax/
