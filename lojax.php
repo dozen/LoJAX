@@ -20,7 +20,7 @@ function lojax_request($uri, $method, $postdata, $auth)
 	$response = array('Body' => '', 'Errors' => '');
 
 	//if the uri is a local path and not a uri
-	if(!preg_match('/^[a-z]+\:\/\//', $uri)) 
+	if(!preg_match('/^[a-z]+\:\/\//u', $uri)) 
 	{
 		//get the parts for the current script uri
 		$parts = parse_url($_SERVER['SCRIPT_URI']);
@@ -51,8 +51,9 @@ function lojax_request($uri, $method, $postdata, $auth)
 		$allowed = false;
 		
 		//if we have a hosts file in this directory
-		if(@include_once('lojax-hosts.php'))
+		if(file_exists('lojax-hosts.php'))
 		{
+            include_once('lojax-hosts.php');
 			//if the request host is contained in the hosts array
 			//then this request is allowed 
 			if(isset($lojax_hosts) && in_array($parts['host'], $lojax_hosts)) 
@@ -77,7 +78,7 @@ function lojax_request($uri, $method, $postdata, $auth)
 	//define an error in the response status
 	//and an explanation in the response errors array 
 	//(for client-side throw()), then return the reponse
-	if(!preg_match('/^(http)$/', $parts['scheme']))
+	if(!preg_match('/^(http)$/u', $parts['scheme']))
 	{
 		$response['Status'] = 'HTTP/1.0 467 Unsupported Protocol';
 		$response['Errors'] = '[LoJAX] Unsupported protocol ' . $parts['scheme'] . '://';
@@ -353,9 +354,9 @@ $expose = false;
 $attrs = ($expose ? 'rows="10" cols="30"' : 'rows="1" cols="1" disabled="disabled"');
 $type = ($expose ? 'type="text"' : 'type="hidden"');
 $html = '<form action="" id="lojax_sender"><fieldset>'
-	. '<textarea id="lojax_response" ' . $attrs . '>' . (isset($output) ? htmlentities($output) : '') . '</textarea>'
-	. '<textarea id="lojax_headers" ' . $attrs . '>' . (isset($headers) ? htmlentities($headers) : '') . '</textarea>'
-	. '<input id="lojax_status" ' . $type . ' value="' . (isset($status) ? htmlentities($status) : '') . '" />'
+	. '<textarea id="lojax_response" ' . $attrs . '>' . (isset($output) ? htmlspecialchars($output, ENT_QUOTES) : '') . '</textarea>'
+	. '<textarea id="lojax_headers" ' . $attrs . '>' . (isset($headers) ? htmlspecialchars($headers, ENT_QUOTES) : '') . '</textarea>'
+	. '<input id="lojax_status" ' . $type . ' value="' . (isset($status) ? htmlspecialchars($status, ENT_QUOTES) : '') . '" />'
 	. '</fieldset></form>';
 
 //output the form
